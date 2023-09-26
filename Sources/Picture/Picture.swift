@@ -6,6 +6,8 @@ public struct Picture: View {
     }
 }
 
-#Preview {
-    Picture()
+private struct Picture_Preview: PreviewProvider {
+    static var previews: some View {
+        Picture()
+    }
 }
