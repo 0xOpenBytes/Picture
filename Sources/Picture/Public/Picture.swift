@@ -33,6 +33,19 @@ public struct Picture: View {
             .padding()
 
             GeometryReader { geometry in
+                #if os(macOS)
+                TabView(selection: $currentSourceIndex) {
+                    ForEach(0 ..< sources.count, id: \.self) { sourceIndex in
+                        InteractableImage(source: .cached(sources[sourceIndex]))
+                            .frame(
+                                maxWidth: geometry.size.width,
+                                maxHeight: geometry.size.height
+                            )
+                            .tag(sourceIndex)
+                    }
+                }
+                .gesture(isViewingImage ? DragGesture() : nil)
+                #else
                 TabView(selection: $currentSourceIndex) {
                     ForEach(0 ..< sources.count, id: \.self) { sourceIndex in
                         InteractableImage(source: .cached(sources[sourceIndex]))
@@ -50,6 +63,7 @@ public struct Picture: View {
                     )
                 )
                 .gesture(isViewingImage ? DragGesture() : nil)
+                #endif
             }
         }
     }

@@ -44,11 +44,22 @@ public enum PictureSource {
         case .remote(let url):
             let (data, _) = try await URLSession.shared.data(from: url)
 
+            let image: Image
+
+            #if os(macOS)
+            guard let loadedImage = NSImage(data: data) else {
+                return nil
+            }
+
+            image = Image(nsImage: loadedImage)
+            #else
             guard let loadedImage = UIImage(data: data) else {
                 return nil
             }
 
-            let image = Image(uiImage: loadedImage)
+            image = Image(uiImage: loadedImage)
+            #endif
+
 
             Self.cache.set(value: image, for: url)
 
