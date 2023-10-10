@@ -9,32 +9,32 @@ Picture is a useful Swift Package Manager project that simplifies the process of
 ```swift
 // Single Image or UIImage
 var body: some View {
-	Picture(image: image)
+    Picture(image: image)
 }
 
 // Single URL
 var body: some View {
-	Picture(url: imageURL)
+    Picture(url: imageURL)
 }
 
 // Multiple Images or UIImages
 var body: some View {
-	Picture(images: images)
+    Picture(images: images)
 }
 
 // Multiple URLs
 var body: some View {
-	Picture(urls: imageURLs)
+    Picture(urls: imageURLs)
 }
 
 // Multiple URLs or Images
 let remoteAndLocalImages: [PictureSource] = [
-	.local(image),
-	.remote(url)
+    .local(image),
+    .remote(url)
 ]
 
 var body: some View {
-	Picture(remoteAndLocalImages)
+    Picture(remoteAndLocalImages)
 }
 ```
 
@@ -42,6 +42,6 @@ var body: some View {
 
 ```swift
 public init(sources: [PictureSource]) {
-  self.sources = sources
+    self.sources = sources
 }
 ```
