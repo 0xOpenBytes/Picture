@@ -4,6 +4,14 @@
 
 Picture is a useful Swift Package Manager project that simplifies the process of displaying multiple images in SwiftUI. It supports both local and remote images and handles the UI, loading, and caching of images. Picture is an excellent tool for enhancing the visual appeal of apps while reducing the time and effort required for image loading and caching.
 
+## Features
+
+- Display multiple images in SwiftUI with ease
+- Support for both local and remote images
+- Automatic handling of image loading and caching
+- Simplified API for seamless integration
+- Enhanced visual appeal for your apps
+
 ## Example Usages
 
 ```swift
@@ -45,3 +53,22 @@ public init(sources: [PictureSource]) {
     self.sources = sources
 }
 ```
+
+## Installation
+
+To integrate Picture into your project using Swift Package Manager, simply add the following dependency to your `Package.swift` file:
+
+```swift
+dependencies: [
+    .package(url: "<https://github.com/0xOpenBytes/Picture.git>", from: "1.0.0")
+]
+
+```
+
+## Requirements
+
+- iOS 17.0+
+
+## License
+
+Picture is available under the MIT license. See the [LICENSE](https://github.com/0xOpenBytes/Picture/blob/main/LICENSE) file for more info.
