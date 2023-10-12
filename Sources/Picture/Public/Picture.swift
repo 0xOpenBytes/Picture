@@ -77,7 +77,7 @@ public struct Picture<
                     )
                 )
                 .gesture(isViewingImage ? DragGesture() : nil)
-#endif
+                #endif
             }
         }
     }
