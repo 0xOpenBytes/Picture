@@ -1,14 +1,28 @@
 import SwiftUI
 
-public struct Picture: View {
+public struct Picture<
+    SingleImageContent: View,
+    MultipleImageContent: View
+>: View {
     private let sources: [PictureSource]
+    private let singleImageContent: (Image) -> SingleImageContent
+    private let multipleImageContent: ([Image]) -> MultipleImageContent
 
+
+    @ObservedObject private var viewModel: PictureViewModel
     @State private var isFullscreen: Bool = false
     @State private var isViewingImage: Bool = false
     @State private var currentSourceIndex: Int = 0
 
-    public init(sources: [PictureSource]) {
+    public init(
+        sources: [PictureSource],
+        @ViewBuilder singleImageContent: @escaping (Image) -> SingleImageContent,
+        @ViewBuilder multipleImageContent: @escaping ([Image]) -> MultipleImageContent
+    ) {
+        self._viewModel = ObservedObject(initialValue: PictureViewModel(sources: sources))
         self.sources = sources
+        self.singleImageContent = singleImageContent
+        self.multipleImageContent = multipleImageContent
     }
 
     @ViewBuilder
@@ -63,17 +77,21 @@ public struct Picture: View {
                     )
                 )
                 .gesture(isViewingImage ? DragGesture() : nil)
-                #endif
+#endif
             }
         }
     }
 
     public var body: some View {
         Group {
-            if sources.count == 1 {
-                Text("Image")
-            } else {
-                Text("Images: \(sources.count)")
+            switch viewModel.images.count {
+            case 0:
+                ProgressView()
+                    .onAppear {
+                        viewModel.load()
+                    }
+            case 1:     singleImageBody
+            default:    multipleImageBody
             }
         }
         .sheet(isPresented: $isFullscreen) {
@@ -82,6 +100,18 @@ public struct Picture: View {
         .onTapGesture {
             isFullscreen = true
         }
+    }
+
+    @ViewBuilder
+    private var singleImageBody: some View {
+        if let image = viewModel.images.first {
+            singleImageContent(image)
+        }
+    }
+
+    @ViewBuilder
+    private var multipleImageBody: some View {
+        multipleImageContent(viewModel.images)
     }
 }
 
