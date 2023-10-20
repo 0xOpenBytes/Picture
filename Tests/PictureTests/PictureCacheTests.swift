@@ -2,7 +2,7 @@ import XCTest
 import SwiftUI
 @testable import Picture
 
-internal final class PictureCacheTests: XCTestCase {
+final class PictureCacheTests: XCTestCase {
   private let faviconURL: URL = .init(string: "https://openbytes.com/favicon.png")!
 
   internal func testNotFoundImageForSpecifiedURL() {
@@ -14,13 +14,13 @@ internal final class PictureCacheTests: XCTestCase {
   }
 
   internal func testFoundImageForSpecifiedURL() {
-    let sut = PictureCache()
+    let cache = PictureCache()
 
     let expectedImage = Image("house")
 
-    sut.set(value: expectedImage, for: faviconURL)
+    cache.set(value: expectedImage, for: faviconURL)
 
-    let actualImage = sut.get(url: faviconURL)
+    let actualImage = cache.get(url: faviconURL)
 
     XCTAssertEqual(actualImage, expectedImage)
   }
