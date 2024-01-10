@@ -1,8 +1,28 @@
+
+// InteractableImage.swift
+
 import SwiftUI
+
+/**
+The `InteractableImage` view allows users to interact with an image. It supports the following features:
+
+- Pinch gestures to zoom in and out on the image
+- Drag gestures to pan the image
+- A reset button that restores the image to its original size and position
+- Accessibility actions to allow VoiceOver users to zoom in and out
+
+ - Note: The view manages its state, including zoom level and offset, using the `InteractableImageViewModel` object.
+  Access this object through the `viewModel` property.
+*/
 
 public struct InteractableImage: View {
     @ObservedObject private var viewModel: InteractableImageViewModel
 
+    /**
+     Gesture for magnifying the image.
+     - Parameters:
+       - value: The magnification value.
+    */
     private var magnificationGesture: some Gesture {
         MagnifyGesture()
             .onChanged { value in
@@ -15,6 +35,11 @@ public struct InteractableImage: View {
             }
     }
 
+    /**
+     Gesture for dragging and repositioning the image.
+     - Parameters:
+       - value: The translation value.
+    */
     private var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
@@ -25,12 +50,21 @@ public struct InteractableImage: View {
             }
     }
 
+    /**
+     Initializes the 'InteractableImage' view with a specified picture source.
+     - Parameters:
+       - source: The source of the picture (local file or remote URL).
+    */
     public init(source: PictureSource) {
         self._viewModel = ObservedObject(
             initialValue: InteractableImageViewModel(source: source)
         )
     }
 
+    /**
+     Body of the 'InteractableImage' view, handling image display, zoom, and gestures.
+     - Returns: A SwiftUI `View` representing the interactive image.
+    */
     public var body: some View {
         if let image = viewModel.image {
             ZStack {
