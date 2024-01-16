@@ -1,3 +1,4 @@
+
 // Picture+init.swift
 
 import SwiftUI
@@ -16,6 +17,8 @@ where SingleImageContent == SingleImageView,
      
      - Parameters:
        - sources: An array of 'PictureSource' instances representing the sources of the images (local or remote).
+
+     - Note: For customization of single or multiple images, use the appropriate view builder closures.
      */
 
     public init(
