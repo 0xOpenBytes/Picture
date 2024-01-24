@@ -12,7 +12,6 @@ import SwiftUI
     - The cache implements a thread-safe approach using an internal lock (`NSLock`) to handle concurrent access.
 
 - Warning: Avoid overusing memory by managing the cache size and considering cleanup strategies.
-
 */
 
 public class PictureCache {
@@ -35,7 +34,7 @@ public class PictureCache {
     - Parameters:
         - url: The URL associated with the image.
 
-    - Returns: The cached `Image` if available; otherwise, `nil`.  
+    - Returns: The cached `Image` if available; otherwise, it returns `nil`.  
     */
 
     public func `get`(url: URL) -> Image? {
